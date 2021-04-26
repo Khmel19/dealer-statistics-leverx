@@ -1,12 +1,13 @@
 package by.khmel.dealerstat.config;
 
+import by.khmel.dealerstat.config.dataconfig.DataConfig;
 import by.khmel.dealerstat.config.webconfig.WebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class SpringMvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null;
+        return new Class[]{DataConfig.class};
     }
 
     @Override
