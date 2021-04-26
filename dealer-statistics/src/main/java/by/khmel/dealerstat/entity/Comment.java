@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "comment")
 public class Comment {
 
     @Id
@@ -18,9 +19,6 @@ public class Comment {
 
     private String message;
 
-    @Column(name = "user_id", insertable = false, updatable = false)
-    private Long userId;
-
     private int mark;
 
     @Column(name = "created_at")
@@ -28,7 +26,6 @@ public class Comment {
 
     @Column(name = "approved")
     private boolean isApproved;
-
 
     @ManyToOne
     @JoinColumn(name = "user_id")

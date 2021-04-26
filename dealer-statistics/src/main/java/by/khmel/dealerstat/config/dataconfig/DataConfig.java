@@ -1,6 +1,5 @@
 package by.khmel.dealerstat.config.dataconfig;
 
-import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -8,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -20,7 +19,6 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan("by.khmel.dealerstat")
 @PropertySource("classpath:app.properties")
-//@EnableJpaRepositories("com.devcolibri.dataexam.repository")
 public class DataConfig {
     @Autowired
     private Environment env;
@@ -37,21 +35,19 @@ public class DataConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setDataSource(dataSource());
-        entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        entityManagerFactoryBean.setPackagesToScan(Objects.requireNonNull(env.getProperty("db.entitling.packages.to.scan")));
+    public LocalSessionFactoryBean sessionFactoryBean() {
+        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
+        sessionFactoryBean.setDataSource(dataSource());
+        sessionFactoryBean.setHibernateProperties(getHibernateProperties());
+        sessionFactoryBean.setPackagesToScan(Objects.requireNonNull(env.getProperty("db.entitling.packages.to.scan")));
 
-        entityManagerFactoryBean.setJpaProperties(getHibernateProperties());
-
-        return entityManagerFactoryBean;
+        return sessionFactoryBean;
     }
 
     @Bean
     public JpaTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+        transactionManager.setEntityManagerFactory(sessionFactoryBean().getObject());
 
         return transactionManager;
     }

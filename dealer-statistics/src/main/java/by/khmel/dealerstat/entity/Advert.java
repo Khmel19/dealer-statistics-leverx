@@ -1,7 +1,6 @@
 package by.khmel.dealerstat.entity;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,8 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
+@Table(name = "advert")
 public class Advert {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +23,8 @@ public class Advert {
 
     private boolean status;
 
-    @Column(name = "user_id", insertable = false, updatable = false)
-    private Long userId;
+//    @Column(name = "user_id", insertable = false, updatable = false)
+//    private Long userId;
 
     @Column(name = "created_at")
     private String createdAt;
