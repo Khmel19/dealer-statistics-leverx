@@ -1,8 +1,11 @@
 package by.khmel.dealerstat.entity;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,7 +13,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 @Table(name = "advert")
 public class Advert {
     @Id
@@ -23,9 +26,6 @@ public class Advert {
 
     private boolean status;
 
-//    @Column(name = "user_id", insertable = false, updatable = false)
-//    private Long userId;
-
     @Column(name = "created_at")
     private String createdAt;
 
@@ -36,7 +36,8 @@ public class Advert {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "advert_game",
     joinColumns = @JoinColumn(name = "advert_id"),
     inverseJoinColumns = @JoinColumn(name = "game_id"))

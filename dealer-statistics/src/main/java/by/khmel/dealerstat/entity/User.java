@@ -3,6 +3,8 @@ package by.khmel.dealerstat.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -32,15 +34,19 @@ public class User {
     @Column(name = "created_at")
     private String createdAt;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Collection<Advert> adverts;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Collection<Comment> comments;
 
-    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private List<Role> roles;
 }
