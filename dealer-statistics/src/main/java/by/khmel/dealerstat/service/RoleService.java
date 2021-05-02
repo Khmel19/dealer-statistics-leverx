@@ -1,39 +1,37 @@
 package by.khmel.dealerstat.service;
 
-import by.khmel.dealerstat.dao.RoleDao;
 import by.khmel.dealerstat.entity.Role;
+import by.khmel.dealerstat.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RoleService {
 
-    private final RoleDao roleDao;
+    private RoleRepository roleRepository;
 
     @Autowired
-    public RoleService(RoleDao roleDao) {
-        this.roleDao = roleDao;
+    public void setRoleRepository(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
     }
 
 
-    public void save(Role role) {
-        roleDao.save(role);
+    @Autowired
+    public RoleService(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
     }
 
 
+    @Transactional
     public Role getById(Long id) {
-        return roleDao.getById(id);
+        return roleRepository.getById(id);
     }
 
 
-    public void delete(Long id) {
-        roleDao.delete(id);
+    @Transactional
+    public Role getByName(String name) {
+        return roleRepository.getByName(name);
     }
 
-
-    public List<Role> getAll() {
-        return roleDao.getAll();
-    }
 }

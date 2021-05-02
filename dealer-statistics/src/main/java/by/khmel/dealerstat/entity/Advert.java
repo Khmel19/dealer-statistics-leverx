@@ -39,7 +39,7 @@ public class Advert {
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "advert_game",
-    joinColumns = @JoinColumn(name = "advert_id"),
-    inverseJoinColumns = @JoinColumn(name = "game_id"))
+            joinColumns = @JoinColumn(name = "advert_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id"))
     private List<Game> games;
 }
