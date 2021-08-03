@@ -1,21 +1,23 @@
-# dealer-statistics-leverx
+## dealer-statistics-leverx
 This is my diploma project on LeverX Group Java courses.
+
 
 The goal of the project is to make RESTful API that helps to give an independent rating to traders of in-game items (CS: GO, Fifa, Dota, Team Fortress, etc.). The rating is based on reviews that are offered by everyone, while reviews are thoroughly checked by admins.
 
+
 There are three roles: Administrator, Trader and Anonymous.
 
-Usage scenarios:
+## Usage scenarios:
 A Trader comes to the site, fills out a questionnaire to create his page on the site. After approving account by email trader can create adverts with items he wants to trade. Trader can also leave reviews to other traders.
 An Anonymous comes to the site, finds the trader's page, leaves a review. The administrator checks the review, makes an approval or decline.
 An Administrator comes to the site, finds new reviews and approvs or declines them.
-Main functionality:
+## Main functionality:
 Creation of traders pages.
 Creating reviews for traders.
 Calculation of the trader's rating.
 Calculation of the overall top traders based on their ratings.
 Filter by games and min-max ratings.
-Registration and authorization
+## Registration and authorization
 Registration should take place according to the following scenario:
 
 the user enter the required registration data.
